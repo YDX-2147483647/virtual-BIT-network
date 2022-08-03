@@ -4,9 +4,19 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
+            "name": "Build and Launch Program",
             "program": "${workspaceFolder}/src/index.ts",
             "preLaunchTask": "npm: dev-build",
+            "outFiles": [
+                "${workspaceFolder}/dist/**/*.js",
+            ],
+            "console": "integratedTerminal",
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Program",
+            "program": "${workspaceFolder}/src/index.ts",
             "outFiles": [
                 "${workspaceFolder}/dist/**/*.js",
             ],

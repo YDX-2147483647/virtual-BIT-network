@@ -1,6 +1,6 @@
-import { createWriteStream } from 'fs'
 import inquirer from 'inquirer'
 import { prepare, sign_in } from './webvpn.js'
+import { save_captcha_then_ask_from_command_line } from './captcha_handlers.js'
 
 const { username, password } = await inquirer.prompt([
   {
@@ -14,18 +14,6 @@ const { username, password } = await inquirer.prompt([
 ]) as { username: string, password: string }
 
 const prep = await prepare()
-
-await sign_in({ username, password }, prep, {
-  async resolve_captcha (response) {
-    const captcha_path = 'captcha.png'
-
-    response.body?.pipe(createWriteStream(captcha_path))
-    const answers = await inquirer.prompt([{
-      type: 'input',
-      name: 'captcha',
-      message: `Please check ${captcha_path}. What's the captcha? (case-insensitive)`,
-    }]) as { captcha: string }
-    return answers.captcha
-  },
-})
+await sign_in({ username, password }, prep,
+  save_captcha_then_ask_from_command_line('captcha.png'))
 console.log('✓ Signed in.')

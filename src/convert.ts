@@ -1,4 +1,6 @@
 /**
+ * 两种 URL 相互转换
+ *
  * [Original version by spencerwooo](https://github.com/spencerwooo/bit-webvpn-converter/blob/c97806011cc3113a5090d7b7f919c7d868bd090d/src/components/convert.ts).
  *
  * [Modified by Y.D.X. in August 2021.](https://github.com/YDX-2147483647/bit-webvpn-converter-bidirectional/blob/917110073e6547b4820d77b6d8a4e4ab7d855fa3/src/common/convert.js)

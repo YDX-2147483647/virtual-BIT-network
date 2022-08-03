@@ -1,3 +1,7 @@
+/**
+ * 登录网站
+ */
+
 import { load as load_html } from 'cheerio'
 import fetch, { Response } from 'node-fetch'
 import { encryptPassword } from '../lib/encryptPassword.js'
@@ -6,7 +10,9 @@ import { to_form_data } from './util.js'
 /** auth server URL with trailing slash */
 const auth_server = 'https://webvpn.bit.edu.cn/https/77726476706e69737468656265737421fcf84695297e6a596a468ca88d1b203b/authserver/'
 
-interface Preparation {
+export type CaptchaHandler = (image: Response) => Promise<string>
+
+export interface Preparation {
   salt: string
   execution: string
   cookie: string
@@ -50,11 +56,16 @@ function fetch_captcha (cookie: string): Promise<Response> {
   })
 }
 
-/** 登录 */
+/**
+ * 登录
+ * @param param0
+ * @param param1 {@link prepare}
+ * @param resolve_captcha 如果需要验证码，会从`await resolve_captcha(image)`获取验证码，其中`image`会由{@link fetch_captcha}获取。默认不填验证码。
+ */
 export async function sign_in (
   { username, password }: { username: string, password: string },
   { execution, cookie, salt }: Preparation,
-  { resolve_captcha = async () => '' }: { resolve_captcha?: (response: Response) => Promise<string> } = {},
+  resolve_captcha: CaptchaHandler = async () => '',
 ): Promise<void> {
   // 1. Handle captcha
 

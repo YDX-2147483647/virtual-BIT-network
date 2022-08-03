@@ -1,5 +1,17 @@
 # Virtual BIT Network
 
+```powershell
+> npm run build
+> node ./dist/index.js
+? username: 1120○○○○○○
+? password: [input is hidden]
+✓ Signed in.
+```
+
+由于网站规定，连续输错三次及以上，一般会需要验证码。
+
+![验证码图像被直接显示到终端](https://s2.loli.net/2022/08/03/zQxtpAW5jrwV918.jpg)
+
 ## 严重参考
 
 - [spencerwooo/bit-webvpn-converter](https://github.com/spencerwooo/bit-webvpn-converter)

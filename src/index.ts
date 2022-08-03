@@ -26,7 +26,7 @@ export class VirtualBIT {
     this.cookie = null
   }
 
-  async sign_in (resolve_captcha: CaptchaHandler) {
+  async sign_in (resolve_captcha: CaptchaHandler = async () => '') {
     const prep = await prepare()
     await sign_in({ username: this.username, password: this.password }, prep, resolve_captcha)
     this.cookie = prep.cookie

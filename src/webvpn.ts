@@ -65,7 +65,7 @@ function fetch_captcha (cookie: string): Promise<Response> {
 export async function sign_in (
   { username, password }: { username: string, password: string },
   { execution, cookie, salt }: Preparation,
-  resolve_captcha: CaptchaHandler = async () => '',
+  resolve_captcha: CaptchaHandler,
 ): Promise<void> {
   // 1. Handle captcha
 

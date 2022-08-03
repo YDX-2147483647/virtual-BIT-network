@@ -2,6 +2,10 @@
 
 [BIT WebVPN](https://webvpn.bit.edu.cn) 登录与转换。
 
+```shell
+> npm install YDX-2147483647/virtual-BIT-network  # from GitHub
+```
+
 ## 程序界面
 
 ```typescript
@@ -17,9 +21,8 @@ const response = await proxy.fetch('dzb.bit.edu.cn')
 
 ## CLI 命令行界面
 
-```powershell
-> npm run build
-> node ./dist/cli.js
+```shell
+> npm exec virtual-bit-network  # or `npm exec bit-webvpn`
 ? username: 1120○○○○○○
 ? password: [input is hidden]
 ✓ Signed in.

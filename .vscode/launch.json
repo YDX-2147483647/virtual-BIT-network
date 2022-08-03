@@ -6,10 +6,11 @@
             "request": "launch",
             "name": "Launch Program",
             "program": "${workspaceFolder}/src/index.ts",
-            "preLaunchTask": "npm: build",
+            "preLaunchTask": "npm: dev-build",
             "outFiles": [
                 "${workspaceFolder}/dist/**/*.js",
             ],
+            "console": "integratedTerminal",
         },
     ],
 }

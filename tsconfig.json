@@ -11,6 +11,8 @@
   },
   "include": [
     "./src/",
-    "lib/encryptPassword.d.ts",
+  ],
+  "exclude": [
+    "src/**/*.test.ts"
   ],
 }

@@ -1,6 +1,19 @@
 # Virtual BIT Network
 
-[BIT WebVPN](webvpn.bit.edu.cn) 登录与转换。
+[BIT WebVPN](https://webvpn.bit.edu.cn) 登录与转换。
+
+## 程序界面
+
+```typescript
+import VirtualBIT, { cli } from 'virtual-bit-network'
+
+const proxy = new VirtualBIT({ username, password })
+await proxy.sign_in(cli.display_captcha_then_ask_from_command_line({ width: '80%' }))
+
+const response = await proxy.fetch('dzb.bit.edu.cn')
+```
+
+`VirtualBIT.fetch()`会自动转换 URL，添加 cookie。
 
 ## CLI 命令行界面
 

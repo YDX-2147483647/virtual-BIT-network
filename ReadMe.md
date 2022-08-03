@@ -10,6 +10,8 @@
 ? username: 1120○○○○○○
 ? password: [input is hidden]
 ✓ Signed in.
+? Test which website? (eg. dzb.bit.edu.cn) dzb.bit.edu.cn
+Got “北京理工大学党委办公室/行政办公室”.
 ```
 
 由于网站规定，连续输错三次及以上，一般会需要验证码。

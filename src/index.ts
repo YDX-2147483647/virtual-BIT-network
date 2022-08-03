@@ -35,7 +35,7 @@ export class VirtualBIT {
   /**
    * 原始`fetch`的包装
    * @param url
-   * @param init 可能会被修改
+   * @param init
    * @returns
    * 传入的 cookie 会丢失。
    */
@@ -53,14 +53,13 @@ export class VirtualBIT {
     }
 
     // 2. Add cookie
-    // todo
     if (typeof url !== 'string') {
       url.headers.set('cookie', this.cookie)
     }
-    if (init?.headers instanceof Headers) {
-      init.headers.set('cookie', this.cookie)
-    } else if (init?.headers) {
-      init.headers = { ...init.headers, cookie: this.cookie }
+    if (init?.headers) {
+      const headers = new Headers(init.headers)
+      headers.set('cookie', this.cookie)
+      init.headers = headers
     } else if (init) {
       init.headers = { cookie: this.cookie }
     } else {

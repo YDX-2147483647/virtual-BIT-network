@@ -5,7 +5,7 @@
             "type": "node",
             "request": "launch",
             "name": "Build and Launch Program",
-            "program": "${workspaceFolder}/src/index.ts",
+            "program": "${workspaceFolder}/src/cli.ts",
             "preLaunchTask": "npm: dev-build",
             "outFiles": [
                 "${workspaceFolder}/dist/**/*.js",
@@ -16,7 +16,7 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceFolder}/src/index.ts",
+            "program": "${workspaceFolder}/src/cli.ts",
             "outFiles": [
                 "${workspaceFolder}/dist/**/*.js",
             ],

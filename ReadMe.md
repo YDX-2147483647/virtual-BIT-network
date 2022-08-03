@@ -1,8 +1,12 @@
 # Virtual BIT Network
 
+[BIT WebVPN](webvpn.bit.edu.cn) 登录与转换。
+
+## CLI 命令行界面
+
 ```powershell
 > npm run build
-> node ./dist/index.js
+> node ./dist/cli.js
 ? username: 1120○○○○○○
 ? password: [input is hidden]
 ✓ Signed in.
@@ -24,3 +28,5 @@
     - [src/utils/tools.ts](https://github.com/flwfdd/BIT101/blob/e196258e6048db798baeaeb8a03d098ae7ca4479/src/utils/tools.ts)
     - [backend/webvpn.py](https://github.com/flwfdd/BIT101/blob/e196258e6048db798baeaeb8a03d098ae7ca4479/backend/webvpn.py)
     - [backend/user.py](https://github.com/flwfdd/BIT101/blob/e196258e6048db798baeaeb8a03d098ae7ca4479/backend/user.py)
+
+> 这两个项目都未明确许可，因此这里暂时也不明确许可。

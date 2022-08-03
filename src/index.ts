@@ -1,20 +1,13 @@
-import inquirer from 'inquirer'
-import chalk from 'chalk'
-import { prepare, sign_in } from './webvpn.js'
-import { display_captcha_then_ask_from_command_line } from './captcha_handlers.js'
+import {
+  ask_from_command_line,
+  display_captcha_then_ask_from_command_line,
+  save_captcha_then_ask_from_command_line,
+} from './captcha_handlers.js'
+export { decrypt_URL, encrypt_URL } from './convert.js'
+export { CaptchaHandler, Preparation, prepare, sign_in } from './webvpn.js'
 
-const { username, password } = await inquirer.prompt([
-  {
-    type: 'input',
-    name: 'username',
-  },
-  {
-    type: 'password',
-    name: 'password',
-  },
-]) as { username: string, password: string }
-
-const prep = await prepare()
-await sign_in({ username, password }, prep,
-  display_captcha_then_ask_from_command_line({ width: '80%' }))
-console.log(chalk.green('✓') + ' Signed in.')
+export const cli = {
+  ask_from_command_line,
+  save_captcha_then_ask_from_command_line,
+  display_captcha_then_ask_from_command_line,
+}

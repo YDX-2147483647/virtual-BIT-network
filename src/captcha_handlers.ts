@@ -5,7 +5,7 @@
 import { createWriteStream } from 'fs'
 import inquirer from 'inquirer'
 import terminalImage from 'terminal-image'
-import { CaptchaHandler } from './webvpn'
+import { CaptchaHandler } from './webvpn.js'
 
 export async function ask_from_command_line (message: string = "What's the captcha? (case-insensitive)"): Promise<string> {
   const answers = await inquirer.prompt([{

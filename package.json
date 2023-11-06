@@ -2,7 +2,6 @@
   "name": "virtual-bit-network",
   "version": "0.2.0",
   "description": "Sign in on BIT WebVPN and convert URLs.",
-  "private": true,
   "homepage": "https://github.com/YDX-2147483647/virtual-BIT-network",
   "bugs": "https://github.com/YDX-2147483647/virtual-BIT-network/issues",
   "author": "Y.D.X.",

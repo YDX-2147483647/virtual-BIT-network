@@ -2,13 +2,22 @@
  * 登录网站
  */
 
+import crypto from 'node:crypto'
 import { load as load_html } from 'cheerio'
 import fetch, { Response } from 'node-fetch'
-import { encryptPassword } from '../lib/encryptPassword.js'
 import { to_form_data } from './util.js'
 
-/** auth server URL with trailing slash */
-const auth_server = 'https://webvpn.bit.edu.cn/https/77726476706e69737468656265737421fcf84695297e6a596a468ca88d1b203b/authserver/'
+/** sso.bit.edu.cn WebVPN URL with trailing slash */
+const auth_server = 'https://webvpn.bit.edu.cn/https/77726476706e69737468656265737421e3e44ed225397c1e7b0c9ce29b5b/cas/'
+
+function encryptPassword (password: string, salt: string): string {
+  const decodedKey = Buffer.from(salt, 'base64')
+  const secretKey = crypto.createSecretKey(decodedKey)
+  const cipher = crypto.createCipheriv('aes-128-ecb', secretKey, null)
+  let encryptedBytes = cipher.update(password, 'utf8')
+  encryptedBytes = Buffer.concat([encryptedBytes, cipher.final()])
+  return encryptedBytes.toString('base64')
+}
 
 export type CaptchaHandler = (image: Response) => Promise<string>
 
@@ -24,14 +33,16 @@ export async function prepare (): Promise<Preparation> {
 
   const $ = load_html(html)
   return {
-    salt: $('input#pwdEncryptSalt').attr('value') as string,
-    execution: $('input#execution').attr('value') as string,
+    salt: $('#login-croypto').text() as string,
+    execution: $('#login-page-flowkey').text() as string,
     cookie: response.headers.get('Set-Cookie') as string,
   }
 }
 
 /** 检查是否需要验证码 */
 async function need_captcha (username: string): Promise<boolean> {
+  // TODO
+  return false
   const url = new URL(auth_server + 'checkNeedCaptcha.htl')
   url.searchParams.set('username', username)
 
@@ -51,6 +62,8 @@ async function need_captcha (username: string): Promise<boolean> {
  * res.body?.pipe(fs.createWriteStream('captcha.png'))
  */
 function fetch_captcha (cookie: string): Promise<Response> {
+  // TODO
+  throw new Error('Not implemented')
   return fetch(auth_server + 'getCaptcha.htl', {
     headers: { cookie },
   })
@@ -85,10 +98,9 @@ export async function sign_in (
       captcha,
       rememberMe: true,
       _eventId: 'submit',
-      cllt: 'userNameLogin',
-      dllt: 'generalLogin',
-      lt: '',
+      type: 'UsernamePassword',
       execution,
+      croypto: salt,
     }),
   })
 
@@ -97,7 +109,7 @@ export async function sign_in (
   if (response.status !== 200) {
     const html = await response.text()
     const $ = load_html(html)
-    const reason = $('#showErrorTip')?.prop('innerText') || 'Unknown reason'
+    const reason = $('#login-error-msg')?.prop('innerText') || 'Unknown reason'
     throw new Error(`Sign in failed with ${response.status} ${response.statusText}: ${reason}.`)
   }
 }

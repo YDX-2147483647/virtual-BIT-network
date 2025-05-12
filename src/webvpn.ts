@@ -4,7 +4,6 @@
 
 import crypto from 'node:crypto'
 import { load as load_html } from 'cheerio'
-import fetch, { type Response } from 'node-fetch'
 import { to_form_data } from './util.js'
 
 /** sso.bit.edu.cn WebVPN URL with trailing slash */

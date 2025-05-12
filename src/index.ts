@@ -1,4 +1,3 @@
-import fetch, { Headers, Request, type RequestInfo, type RequestInit, type Response } from 'node-fetch'
 import {
   ask_from_command_line,
   display_captcha_then_ask_from_command_line,

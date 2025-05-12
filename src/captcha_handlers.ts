@@ -25,7 +25,11 @@ export async function ask_from_command_line(message = "What's the captcha? (case
  */
 export function save_captcha_then_ask_from_command_line(save_path: string): CaptchaHandler {
   return async (response) => {
-    response.body?.pipe(createWriteStream(save_path))
+    const buffer = Buffer.from(await response.arrayBuffer())
+    const writeStream = createWriteStream(save_path)
+    writeStream.write(buffer)
+    writeStream.end()
+    
     return await ask_from_command_line(`Please check “${save_path}”. What's the captcha? (case-insensitive)`)
   }
 }

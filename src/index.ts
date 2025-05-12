@@ -1,18 +1,7 @@
-import {
-  ask_from_command_line,
-  display_captcha_then_ask_from_command_line,
-  save_captcha_then_ask_from_command_line,
-} from './captcha_handlers.js'
 import { decrypt_URL, encrypt_URL } from './convert.js'
-import { CaptchaHandler, prepare, sign_in } from './webvpn.js'
+import { prepare, sign_in } from './webvpn.js'
 
 export { decrypt_URL, encrypt_URL }
-export { CaptchaHandler }
-export const cli = {
-  ask_from_command_line,
-  save_captcha_then_ask_from_command_line,
-  display_captcha_then_ask_from_command_line,
-}
 
 export class VirtualBIT {
   username: string
@@ -25,9 +14,9 @@ export class VirtualBIT {
     this.cookie = null
   }
 
-  async sign_in(resolve_captcha: CaptchaHandler = async () => '') {
+  async sign_in() {
     const prep = await prepare()
-    await sign_in({ username: this.username, password: this.password }, prep, resolve_captcha)
+    await sign_in({ username: this.username, password: this.password }, prep)
     this.cookie = prep.cookie
   }
 

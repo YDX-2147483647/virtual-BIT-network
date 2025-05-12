@@ -1,7 +1,9 @@
 # Virtual BIT Network
 
 > [!CAUTION]
-> [2025年5月10日学校统一身份认证系统升级](https://itc.bit.edu.cn/tzgg/997be9f3c1fe4c26a33285f60d3003dc.htm)，目前已适配登录，但验证码相关功能仍失效。
+> [2025年5月10日学校统一身份认证系统升级](https://itc.bit.edu.cn/tzgg/997be9f3c1fe4c26a33285f60d3003dc.htm)，目前已适配登录。
+>
+> 不过现在验证码机制比较复杂（附带 CSRF 键值对才能检查是否需要验证码）。考虑到其用处不大，目前删除了相关功能。
 
 [BIT WebVPN](https://webvpn.bit.edu.cn) 登录与转换。
 
@@ -12,10 +14,10 @@
 ## 程序界面
 
 ```typescript
-import VirtualBIT, { cli } from 'virtual-bit-network'
+import VirtualBIT from 'virtual-bit-network'
 
 const proxy = new VirtualBIT({ username, password })
-await proxy.sign_in(cli.display_captcha_then_ask_from_command_line({ width: '80%' }))
+await proxy.sign_in()
 
 const response = await proxy.fetch('dzb.bit.edu.cn')
 ```
@@ -33,9 +35,9 @@ const response = await proxy.fetch('dzb.bit.edu.cn')
 Got “北京理工大学党委办公室/行政办公室”.
 ```
 
-由于网站规定，连续输错三次及以上，一般会需要验证码。
+由于网站规定，连续输错三次及以上，一般会需要验证码。此时很遗憾，并不支持登录。
 
-![验证码图像被直接显示到终端](https://s2.loli.net/2022/08/03/zQxtpAW5jrwV918.jpg)
+<!-- ![验证码图像被直接显示到终端](https://s2.loli.net/2022/08/03/zQxtpAW5jrwV918.jpg) -->
 
 ## 严重参考
 
@@ -74,10 +76,10 @@ Got “北京理工大学党委办公室/行政办公室”.
 > 需要先设置`username`、`password`。
 
 ```typescript
-import VirtualBIT, { cli, encrypt_URL } from './index.js'
+import VirtualBIT, { encrypt_URL } from './index.js'
 
 const proxy = new VirtualBIT({ username, password })
-await proxy.sign_in(cli.display_captcha_then_ask_from_command_line({ width: '80%' }))
+await proxy.sign_in()
 
 // ↓玄学
 await proxy.fetch('http://dzb.bit.edu.cn/')
@@ -91,6 +93,6 @@ await proxy.fetch('http://mec.bit.edu.cn/pcmd/ajax.php?vpn-12-o1-mec.bit.edu.cn&
   .then(json => console.log(json.data.data[0].jmtitle))
 
 // 输出示例：
-// 2022年全国大学生数学建模竞赛报名通知（8月5日更新）
+// 2025年北京理工大学数学建模竞赛第二轮赛题(0502有更正)
 ```
 

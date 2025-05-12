@@ -44,7 +44,6 @@
   },
   "peerDependencies": {
     "chalk": "^5.0.1",
-    "inquirer": "^9.0.2",
-    "terminal-image": "^2.0.0"
+    "inquirer": "^9.0.2"
   }
 }

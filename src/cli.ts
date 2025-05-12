@@ -3,7 +3,7 @@
 import chalk from 'chalk'
 import { load } from 'cheerio'
 import inquirer from 'inquirer'
-import VirtualBIT, { cli } from './index.js'
+import VirtualBIT from './index.js'
 
 const { username, password } = (await inquirer.prompt([
   {
@@ -17,7 +17,7 @@ const { username, password } = (await inquirer.prompt([
 ])) as { username: string; password: string }
 
 const proxy = new VirtualBIT({ username, password })
-await proxy.sign_in(cli.display_captcha_then_ask_from_command_line({ width: '80%' }))
+await proxy.sign_in()
 console.log(`${chalk.green('✓')} Signed in.`)
 
 const { url } = (await inquirer.prompt([

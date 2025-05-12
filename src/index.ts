@@ -33,17 +33,18 @@ export class VirtualBIT {
 
   /**
    * 原始`fetch`的包装
-   * @param url
-   * @param init
+   * @param original_url
+   * @param original_init
    * @returns
    * 传入的 cookie 会丢失。
    */
-  fetch(url: RequestInfo, init?: RequestInit | undefined): Promise<Response> {
+  fetch(original_url: RequestInfo, original_init?: RequestInit | undefined): Promise<Response> {
     if (this.cookie === null) {
       throw new Error('Should sign in first.')
     }
 
     // 1. Encrypt the URL
+    let url = original_url
     if (typeof url === 'string') {
       url = encrypt_URL(url)
     } else {
@@ -55,6 +56,7 @@ export class VirtualBIT {
     if (typeof url !== 'string') {
       url.headers.set('cookie', this.cookie)
     }
+    let init = original_init
     if (init?.headers) {
       const headers = new Headers(init.headers)
       headers.set('cookie', this.cookie)

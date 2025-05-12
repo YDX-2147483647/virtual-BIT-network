@@ -42,6 +42,7 @@ export async function prepare(): Promise<Preparation> {
 async function need_captcha(username: string): Promise<boolean> {
   // TODO
   return false
+  // biome-ignore lint/correctness/noUnreachable: TODO
   const url = new URL(`${auth_server}checkNeedCaptcha.htl`)
   url.searchParams.set('username', username)
 
@@ -63,6 +64,7 @@ async function need_captcha(username: string): Promise<boolean> {
 function fetch_captcha(cookie: string): Promise<Response> {
   // TODO
   throw new Error('Not implemented')
+  // biome-ignore lint/correctness/noUnreachable: TODO
   return fetch(`${auth_server}getCaptcha.htl`, {
     headers: { cookie },
   })

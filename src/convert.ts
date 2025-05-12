@@ -18,7 +18,8 @@ const AesCfb = aesjs.ModeOfOperation.cfb
 
 const magic_word = 'wrdvpnisthebest!'
 
-const textRightAppend = (text: string, mode: string) => {
+const textRightAppend = (raw_text: string, mode: string) => {
+  let text = raw_text
   const segmentByteSize = mode === 'utf8' ? 16 : 32
   if (text.length % segmentByteSize === 0) {
     return text
@@ -32,7 +33,8 @@ const textRightAppend = (text: string, mode: string) => {
   return text
 }
 
-const encrypt = (text: string, key: string, iv: string) => {
+const encrypt = (raw_text: string, key: string, iv: string) => {
+  let text = raw_text
   const textLength = text.length
   text = textRightAppend(text, 'utf8')
 
@@ -46,7 +48,8 @@ const encrypt = (text: string, key: string, iv: string) => {
   return hex.fromBytes(ivBytes) + hex.fromBytes(encryptBytes).slice(0, textLength * 2)
 }
 
-const decrypt = (text: string, key: string) => {
+const decrypt = (raw_text: string, key: string) => {
+  let text = raw_text
   const textLength = (text.length - 32) / 2
   text = textRightAppend(text, 'hex')
 

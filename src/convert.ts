@@ -43,13 +43,9 @@ const encrypt = (text: string, key: string, iv: string) => {
   const aesCfb = new AesCfb(keyBytes, ivBytes, 16)
   const encryptBytes = aesCfb.encrypt(textBytes)
 
-  return (
-    hex.fromBytes(ivBytes) +
-    hex.fromBytes(encryptBytes).slice(0, textLength * 2)
-  )
+  return hex.fromBytes(ivBytes) + hex.fromBytes(encryptBytes).slice(0, textLength * 2)
 }
 
-// eslint-disable-next-line
 const decrypt = (text: string, key: string) => {
   const textLength = (text.length - 32) / 2
   text = textRightAppend(text, 'hex')
@@ -69,16 +65,14 @@ const decrypt = (text: string, key: string) => {
  * @param url_str
  * @returns 补足协议类型的 URL
  */
-function guess_protocol (url_str: string): string {
+function guess_protocol(url_str: string): string {
   if (!url_str.includes('://')) {
     if (url_str.includes('.bit.edu.cn')) {
-      return 'http://' + url_str
-    } else {
-      return 'https://' + url_str
+      return `http://${url_str}`
     }
-  } else {
-    return url_str
+    return `https://${url_str}`
   }
+  return url_str
 }
 
 /**
@@ -89,7 +83,7 @@ function guess_protocol (url_str: string): string {
  * @description 与 0.0 版的区别：此版本返回值是完整 URL，使用 URL API（无需特别处理 IPv6）；但无法处理 SSH 等。
  * @see {@link decrypt_URL}
  */
-export function encrypt_URL (url_str: string): string {
+export function encrypt_URL(url_str: string): string {
   const url = new URL(guess_protocol(url_str))
 
   const protocol = url.protocol.slice(0, -1).toLowerCase() // "https:" -> "https"
@@ -110,7 +104,7 @@ export function encrypt_URL (url_str: string): string {
  * @description 非 WebVPN URL 将报错。
  * @see {@link encrypt_URL}
  */
-export function decrypt_URL (url_str: string): string {
+export function decrypt_URL(url_str: string): string {
   const url = new URL(guess_protocol(url_str))
   if (url.hostname !== 'webvpn.bit.edu.cn') {
     throw RangeError('只能转换 WebVPN URL。')
@@ -124,10 +118,9 @@ export function decrypt_URL (url_str: string): string {
 
   const hostname = decrypt(cipher, magic_word) // `hostname`无法修改
   // ↓ 这里原来是`nothing`，可能导致之后`protocol`无法更改。
-  const host_etc = new URL('https://' + hostname)
+  const host_etc = new URL(`https://${hostname}`)
 
-  const match_obj = protocol_and_port.match(
-    /^(?<protocol>[-0-9a-z]+?)(-(?<port>\d+))?$/)
+  const match_obj = protocol_and_port.match(/^(?<protocol>[-0-9a-z]+?)(-(?<port>\d+))?$/)
   if (match_obj === null || match_obj.groups === undefined) {
     throw RangeError('无法识别 WebVPN URL 的协议或端口。')
   }
@@ -138,7 +131,6 @@ export function decrypt_URL (url_str: string): string {
 
   if (host_etc.href.endsWith('/')) {
     return host_etc.href.slice(0, -1) + pathname_etc
-  } else {
-    return host_etc.href + pathname_etc
   }
+  return host_etc.href + pathname_etc
 }

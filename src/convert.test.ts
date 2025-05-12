@@ -1,5 +1,6 @@
 import { decrypt_URL, encrypt_URL } from './convert.js'
 
+// biome-ignore format: the array should not be formatted
 const pairs = [
   {
     original: 'https://dzb.bit.edu.cn/',

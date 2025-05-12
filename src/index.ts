@@ -1,4 +1,4 @@
-import fetch, { Headers, Request, RequestInfo, RequestInit, Response } from 'node-fetch'
+import fetch, { Headers, Request, type RequestInfo, type RequestInit, type Response } from 'node-fetch'
 import {
   ask_from_command_line,
   display_captcha_then_ask_from_command_line,
@@ -20,13 +20,13 @@ export class VirtualBIT {
   password: string
   cookie: string | null
 
-  constructor ({ username, password }: { username: string, password: string }) {
+  constructor({ username, password }: { username: string; password: string }) {
     this.username = username
     this.password = password
     this.cookie = null
   }
 
-  async sign_in (resolve_captcha: CaptchaHandler = async () => '') {
+  async sign_in(resolve_captcha: CaptchaHandler = async () => '') {
     const prep = await prepare()
     await sign_in({ username: this.username, password: this.password }, prep, resolve_captcha)
     this.cookie = prep.cookie
@@ -39,7 +39,7 @@ export class VirtualBIT {
    * @returns
    * 传入的 cookie 会丢失。
    */
-  fetch (url: RequestInfo, init?: RequestInit | undefined): Promise<Response> {
+  fetch(url: RequestInfo, init?: RequestInit | undefined): Promise<Response> {
     if (this.cookie === null) {
       throw new Error('Should sign in first.')
     }

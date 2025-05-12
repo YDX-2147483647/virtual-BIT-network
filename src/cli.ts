@@ -5,7 +5,7 @@ import { load } from 'cheerio'
 import inquirer from 'inquirer'
 import VirtualBIT, { cli } from './index.js'
 
-const { username, password } = await inquirer.prompt([
+const { username, password } = (await inquirer.prompt([
   {
     type: 'input',
     name: 'username',
@@ -14,17 +14,19 @@ const { username, password } = await inquirer.prompt([
     type: 'password',
     name: 'password',
   },
-]) as { username: string, password: string }
+])) as { username: string; password: string }
 
 const proxy = new VirtualBIT({ username, password })
 await proxy.sign_in(cli.display_captcha_then_ask_from_command_line({ width: '80%' }))
-console.log(chalk.green('✓') + ' Signed in.')
+console.log(`${chalk.green('✓')} Signed in.`)
 
-const { url } = await inquirer.prompt([{
-  type: 'input',
-  name: 'url',
-  message: 'Test which website? (eg. dzb.bit.edu.cn)',
-}]) as { url: string }
+const { url } = (await inquirer.prompt([
+  {
+    type: 'input',
+    name: 'url',
+    message: 'Test which website? (eg. dzb.bit.edu.cn)',
+  },
+])) as { url: string }
 
 const response = await proxy.fetch(url)
 const html = await response.text()

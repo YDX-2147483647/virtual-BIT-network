@@ -4,13 +4,13 @@
 
 import crypto from 'node:crypto'
 import { load as load_html } from 'cheerio'
-import fetch, { Response } from 'node-fetch'
+import fetch, { type Response } from 'node-fetch'
 import { to_form_data } from './util.js'
 
 /** sso.bit.edu.cn WebVPN URL with trailing slash */
 const auth_server = 'https://webvpn.bit.edu.cn/https/77726476706e69737468656265737421e3e44ed225397c1e7b0c9ce29b5b/cas/'
 
-function encryptPassword (password: string, salt: string): string {
+function encryptPassword(password: string, salt: string): string {
   const decodedKey = Buffer.from(salt, 'base64')
   const secretKey = crypto.createSecretKey(decodedKey)
   const cipher = crypto.createCipheriv('aes-128-ecb', secretKey, null)
@@ -27,8 +27,8 @@ export interface Preparation {
   cookie: string
 }
 
-export async function prepare (): Promise<Preparation> {
-  const response = await fetch(auth_server + 'login')
+export async function prepare(): Promise<Preparation> {
+  const response = await fetch(`${auth_server}login`)
   const html = await response.text()
 
   const $ = load_html(html)
@@ -40,14 +40,14 @@ export async function prepare (): Promise<Preparation> {
 }
 
 /** 检查是否需要验证码 */
-async function need_captcha (username: string): Promise<boolean> {
+async function need_captcha(username: string): Promise<boolean> {
   // TODO
   return false
-  const url = new URL(auth_server + 'checkNeedCaptcha.htl')
+  const url = new URL(`${auth_server}checkNeedCaptcha.htl`)
   url.searchParams.set('username', username)
 
   const response = await fetch(url.href)
-  const json = await response.json() as { isNeed: boolean }
+  const json = (await response.json()) as { isNeed: boolean }
   return json.isNeed
 }
 
@@ -61,10 +61,10 @@ async function need_captcha (username: string): Promise<boolean> {
  * const res = await fetch_captcha(cookie)
  * res.body?.pipe(fs.createWriteStream('captcha.png'))
  */
-function fetch_captcha (cookie: string): Promise<Response> {
+function fetch_captcha(cookie: string): Promise<Response> {
   // TODO
   throw new Error('Not implemented')
-  return fetch(auth_server + 'getCaptcha.htl', {
+  return fetch(`${auth_server}getCaptcha.htl`, {
     headers: { cookie },
   })
 }
@@ -75,8 +75,8 @@ function fetch_captcha (cookie: string): Promise<Response> {
  * @param param1 {@link prepare}
  * @param resolve_captcha 如果需要验证码，会从`await resolve_captcha(image)`获取验证码，其中`image`会由{@link fetch_captcha}获取。默认不填验证码。
  */
-export async function sign_in (
-  { username, password }: { username: string, password: string },
+export async function sign_in(
+  { username, password }: { username: string; password: string },
   { execution, cookie, salt }: Preparation,
   resolve_captcha: CaptchaHandler,
 ): Promise<void> {
@@ -89,7 +89,7 @@ export async function sign_in (
 
   // 2. Post the sign in form
 
-  const response = await fetch(auth_server + 'login', {
+  const response = await fetch(`${auth_server}login`, {
     method: 'POST',
     headers: { cookie },
     body: to_form_data({

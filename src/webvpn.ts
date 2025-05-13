@@ -10,13 +10,13 @@ import { to_form_data } from './util.ts'
 /** sso.bit.edu.cn WebVPN URL with trailing slash */
 const auth_server = 'https://webvpn.bit.edu.cn/https/77726476706e69737468656265737421e3e44ed225397c1e7b0c9ce29b5b/cas/'
 
-function encryptPassword(password: string, salt: string): string {
-  const decodedKey = Buffer.from(salt, 'base64')
-  const secretKey = crypto.createSecretKey(decodedKey)
-  const cipher = crypto.createCipheriv('aes-128-ecb', secretKey, null)
-  let encryptedBytes = cipher.update(password, 'utf8')
-  encryptedBytes = Buffer.concat([encryptedBytes, cipher.final()])
-  return encryptedBytes.toString('base64')
+/** 导出仅用于测试，不建议使用 */
+export function encryptPassword(password: string, salt: string): string {
+  const salt_bytes = Buffer.from(salt, 'base64')
+  // The third arg of `createCipheriv`, `iv`, could be `null`, but it does not work in deno.
+  const cipher = crypto.createCipheriv('aes-128-ecb', salt_bytes, Buffer.alloc(0))
+  const encrypted = cipher.update(password, 'utf8')
+  return Buffer.concat([encrypted, cipher.final()]).toString('base64')
 }
 
 export interface Preparation {

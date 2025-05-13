@@ -1,0 +1,6 @@
+{
+  "name": "@ydx/virtual-bit-network",
+  "version": "0.3.0-alpha",
+  "license": "MIT",
+  "exports": "./src/index.ts"
+}

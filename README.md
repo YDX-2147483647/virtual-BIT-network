@@ -1,5 +1,8 @@
 # Virtual BIT Network
 
+[![NPM Version](https://img.shields.io/npm/v/virtual-bit-network)](https://www.npmjs.com/package/virtual-bit-network)
+[![JSR Version](https://img.shields.io/jsr/v/%40ydx/virtual-bit-network)](https://jsr.io/@ydx/virtual-bit-network)
+
 > [!CAUTION]
 > [2025年5月10日学校统一身份认证系统升级](https://itc.bit.edu.cn/tzgg/997be9f3c1fe4c26a33285f60d3003dc.htm)，目前已适配登录。
 >

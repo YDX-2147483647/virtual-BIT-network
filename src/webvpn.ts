@@ -4,7 +4,7 @@
 
 import crypto from 'node:crypto'
 import { load as load_html } from 'cheerio'
-import { to_form_data } from './util.js'
+import { to_form_data } from './util.ts'
 
 /** sso.bit.edu.cn WebVPN URL with trailing slash */
 const auth_server = 'https://webvpn.bit.edu.cn/https/77726476706e69737468656265737421e3e44ed225397c1e7b0c9ce29b5b/cas/'

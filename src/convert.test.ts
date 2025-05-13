@@ -1,4 +1,4 @@
-import { decrypt_URL, encrypt_URL } from './convert.js'
+import { decrypt_URL, encrypt_URL } from './convert.ts'
 
 // biome-ignore format: the array should not be formatted
 const pairs = [

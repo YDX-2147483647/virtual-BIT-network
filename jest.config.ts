@@ -1,11 +1,9 @@
-import type { JestConfigWithTsJest } from 'ts-jest/dist/types'
+import type { JestConfigWithTsJest } from 'ts-jest'
 
 export default {
-  preset: 'ts-jest/presets/default-esm',
-  globals: {
-    'ts-jest': {
-      useESM: true,
-    },
+  testEnvironment: "node",
+  transform: {
+    "^.+\.tsx?$": ["ts-jest", {}],
   },
   moduleNameMapper: {
     '^(\\.{1,2}/.*)\\.js$': '$1',

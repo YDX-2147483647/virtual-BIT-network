@@ -1,5 +1,5 @@
-import { decrypt_URL, encrypt_URL } from './convert.js'
-import { prepare, sign_in } from './webvpn.js'
+import { decrypt_URL, encrypt_URL } from './convert.ts'
+import { prepare, sign_in } from './webvpn.ts'
 
 export { decrypt_URL, encrypt_URL }
 

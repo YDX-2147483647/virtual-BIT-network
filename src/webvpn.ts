@@ -2,6 +2,7 @@
  * 登录网站
  */
 
+import { Buffer } from 'node:buffer'
 import crypto from 'node:crypto'
 import { load as load_html } from 'cheerio'
 import { to_form_data } from './util.ts'

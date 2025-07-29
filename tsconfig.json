@@ -3,6 +3,7 @@
     "target": "ESNext",
     "moduleResolution": "Node",
     "module": "ESNext",
+    "allowImportingTsExtensions": true,
     "declaration": true,
     "outDir": "./dist/",
     "esModuleInterop": true,

@@ -1,32 +1,18 @@
 #!/usr/bin/env node
 
+import { input, password as input_password } from '@inquirer/prompts'
 import chalk from 'chalk'
 import { load } from 'cheerio'
-import inquirer from 'inquirer'
 import VirtualBIT from './index.ts'
 
-const { username, password } = (await inquirer.prompt([
-  {
-    type: 'input',
-    name: 'username',
-  },
-  {
-    type: 'password',
-    name: 'password',
-  },
-])) as { username: string; password: string }
+const username = await input({ message: 'Username:' })
+const password = await input_password({ message: 'Password:' })
 
 const proxy = new VirtualBIT({ username, password })
 await proxy.sign_in()
 console.log(`${chalk.green('✓')} Signed in.`)
 
-const { url } = (await inquirer.prompt([
-  {
-    type: 'input',
-    name: 'url',
-    message: 'Test which website? (eg. dzb.bit.edu.cn)',
-  },
-])) as { url: string }
+const url = await input({ message: 'Test which website? (eg. dzb.bit.edu.cn)' })
 
 const response = await proxy.fetch(url)
 const html = await response.text()

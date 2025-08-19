@@ -31,8 +31,8 @@ const response = await proxy.fetch('dzb.bit.edu.cn')
 
 ```shell
 > npm exec virtual-bit-network  # or `npm exec bit-webvpn`
-? username: 1120○○○○○○
-? password: [input is hidden]
+? Username: 1120○○○○○○
+? Password: [input is masked]
 ✓ Signed in.
 ? Test which website? (eg. dzb.bit.edu.cn) dzb.bit.edu.cn
 Got “北京理工大学党委办公室/行政办公室”.

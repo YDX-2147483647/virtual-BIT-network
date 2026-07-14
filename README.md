@@ -4,9 +4,18 @@
 [![JSR Version](https://img.shields.io/jsr/v/%40ydx/virtual-bit-network)](https://jsr.io/@ydx/virtual-bit-network)
 
 > [!CAUTION]
+>
+> 从2026年7月10日早上开始，使用本项目会持续报错，可能和[二次认证](https://github.com/BIT101-dev/BIT-Login/pull/2)有关。
+>
+> > Error: Sign in failed with 401 Unauthorized: Unknown reason.
+>
+> <details><summary>以往存档</summary>
+>
 > [2025年5月10日学校统一身份认证系统升级](https://itc.bit.edu.cn/tzgg/997be9f3c1fe4c26a33285f60d3003dc.htm)，目前已适配登录。
 >
 > 不过现在验证码机制比较复杂（附带 CSRF 键值对才能检查是否需要验证码）。考虑到其用处不大，目前删除了相关功能。
+>
+> </details>
 
 [BIT WebVPN](https://webvpn.bit.edu.cn) 登录与转换。
 
